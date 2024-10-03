@@ -3,34 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp2.MainPage">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
-            <Image
-                Source="dotnet_bot.png"
-                HeightRequest="185"
-                Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a race car number eight" />
+    <VerticalStackLayout>
 
-            <Label
-                Text="Hello, World!"
-                Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level1" />
+        <VerticalStackLayout HorizontalOptions="Center" MaximumWidthRequest="1000">
+            <Grid x:Name="grdSeatingView" RowSpacing="10" ColumnSpacing="10" 
+                  Margin="25" HorizontalOptions="Center" WidthRequest="600" />
 
-            <Label
-                Text="Welcome to &#10;.NET Multi-platform App UI"
-                Style="{StaticResource SubHeadline}"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me" 
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Fill" />
+            <HorizontalStackLayout x:Name="layoutSeatingControls" Margin="25" Spacing="25">
+                <Button Text="Reserve a Seat" Clicked="ButtonReserveSeat"/>
+                <Button Text="Reserve a Seat Range" Clicked="ButtonReserveRange"/>
+                <Button Text="Cancel Reservation" Clicked="ButtonCancelReservation"/>
+                <Button Text="Cancel Reservation Range" Clicked="ButtonCancelReservationRange"/>
+                <Button Text="Reset Seating Chart" Clicked="ButtonResetSeatingChart"/>
+            </HorizontalStackLayout>
         </VerticalStackLayout>
-    </ScrollView>
+
+
+    </VerticalStackLayout>
+
 
 </ContentPage>
