@@ -116,10 +116,50 @@ namespace MauiApp2
             }
         }
 
-        //Assign to Team 1 Member
-        private void ButtonReserveRange(object sender, EventArgs e)
+        //Completed by Muhammad Asjad Rehman Hashmi
+        private async void ButtonReserveRange(object sender, EventArgs e)
         {
-            //a comment
+            var startSeat = await DisplayPromptAsync("Enter Start Seat Number", "Enter the starting seat number:");
+            var endSeat = await DisplayPromptAsync("Enter End Seat Number", "Enter the ending seat number:");
+
+            if (startSeat != null && endSeat != null)
+            {
+                bool foundStart = false;
+                bool foundEnd = false;
+
+                for (int i = 0; i < seatingChart.GetLength(0); i++)
+                {
+                    for (int j = 0; j < seatingChart.GetLength(1); j++)
+                    {
+                        if (seatingChart[i, j].Name == startSeat)
+                        {
+                            foundStart = true;
+
+                            while (seatingChart[i, j].Name != endSeat && j < seatingChart.GetLength(1))
+                            {
+                                seatingChart[i, j].Reserved = true;
+                                j++;
+                            }
+
+                            if (seatingChart[i, j].Name == endSeat)
+                            {
+                                seatingChart[i, j].Reserved = true;
+                                foundEnd = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (foundStart && foundEnd)
+                    {
+                        await DisplayAlert("Success", "Seats reserved successfully!", "Ok");
+                        RefreshSeating();
+                        return;
+                    }
+                }
+
+                await DisplayAlert("Error", "Invalid range of seats.", "Ok");
+            }
         }
 
         //Assign to Team 2 Member
