@@ -115,8 +115,11 @@ namespace MauiApp2
                 }
             }
         }
-
-        //Completed by Muhammad Asjad Rehman Hashmi
+        //****************************************************************************************************************
+        //****************************************************************************************************************
+        //                          Completed by Muhammad Asjad Rehman Hashmi
+        //****************************************************************************************************************
+        //****************************************************************************************************************
         private async void ButtonReserveRange(object sender, EventArgs e)
         {
             var startSeat = await DisplayPromptAsync("Enter Start Seat Number", "Enter the starting seat number:");
@@ -161,6 +164,9 @@ namespace MauiApp2
                 await DisplayAlert("Error", "Invalid range of seats.", "Ok");
             }
         }
+
+        //****************************************************************************************************************
+        //****************************************************************************************************************
 
         //Assign to Team 2 Member
         private void ButtonCancelReservation(object sender, EventArgs e)
