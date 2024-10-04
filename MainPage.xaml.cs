@@ -205,10 +205,59 @@ namespace MauiApp2
         }
 
         //Assign to Team 3 Member
-        private void ButtonCancelReservationRange(object sender, EventArgs e)
+        private async void ButtonCancelReservationRange(object sender, EventArgs e)
         {
+            var startSeat = await DisplayPromptAsync("Enter Start Seat Number", "Enter the starting seat number:");
+            var endSeat = await DisplayPromptAsync("Enter End Seat Number", "Enter the ending seat number:");
 
+            if (startSeat != null && endSeat != null)
+            {
+                bool foundStart = false;
+                bool foundEnd = false;
+
+                for (int i = 0; i < seatingChart.GetLength(0); i++)
+                {
+                    for (int j = 0; j < seatingChart.GetLength(1); j++)
+                    {
+                        if (seatingChart[i, j].Name == startSeat)
+                        {
+                            foundStart = true;
+
+                            // Cancel reservations from start to end seat
+                            while (j < seatingChart.GetLength(1) && seatingChart[i, j].Name != endSeat)
+                            {
+                                if (seatingChart[i, j].Reserved)
+                                {
+                                    seatingChart[i, j].Reserved = false; // Cancel reservation
+                                }
+                                j++;
+                            }
+
+                            // Check if the end seat is found and cancel its reservation
+                            if (j < seatingChart.GetLength(1) && seatingChart[i, j].Name == endSeat)
+                            {
+                                if (seatingChart[i, j].Reserved)
+                                {
+                                    seatingChart[i, j].Reserved = false; // Cancel reservation
+                                }
+                                foundEnd = true;
+                            }
+                            break; // Break out of the inner loop
+                        }
+                    }
+
+                    if (foundStart && foundEnd)
+                    {
+                        await DisplayAlert("Success", "Seats canceled successfully!", "Ok");
+                        RefreshSeating();
+                        return;
+                    }
+                }
+
+                await DisplayAlert("Error", "Invalid range of seats.", "Ok");
+            }
         }
+
 
         //Assign to Team 4 Member
         private void ButtonResetSeatingChart(object sender, EventArgs e)
