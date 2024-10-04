@@ -258,12 +258,25 @@ namespace MauiApp2
             }
         }
 
+// completed by reham afzal
+      private async void ButtonResetSeatingChart(object sender, EventArgs e)
+{
+    bool confirm = await DisplayAlert("Confirm", "Are you sure you want to reset all seats?", "Yes", "No");
 
-        //Assign to Team 4 Member
-        private void ButtonResetSeatingChart(object sender, EventArgs e)
+    if (confirm)
+    {
+        for (int i = 0; i < seatingChart.GetLength(0); i++)
         {
-
+            for (int j = 0; j < seatingChart.GetLength(1); j++)
+            {
+                seatingChart[i, j].Reserved = false;
+            }
         }
+
+        await DisplayAlert("Success", "All seats have been reset.", "Ok");
+        RefreshSeating();
+    }
+}
     }
 
 }
