@@ -168,13 +168,13 @@ namespace MauiApp2
         //****************************************************************************************************************
         //****************************************************************************************************************
 
-        //Assign to Team 2 Member
+        //Assign to Team 2 Member - Aelin
         private void ButtonCancelReservation(object sender, EventArgs e)
         {
 
         }
 
-        //Assign to Team 3 Member - Aelin
+        //Assign to Team 3 Member
         private void ButtonCancelReservationRange(object sender, EventArgs e)
         {
 
