@@ -1,5 +1,6 @@
 ﻿using System.Collections.Specialized;
 using System.Reflection.Metadata;
+using System.Linq;
 
 namespace MauiApp2
 {
@@ -165,13 +166,42 @@ namespace MauiApp2
             }
         }
 
-        //****************************************************************************************************************
-        //****************************************************************************************************************
-
-        //Assign to Team 2 Member - Aelin
-        private void ButtonCancelReservation(object sender, EventArgs e)
+        // ✿ Completed by Aelin Med ᵔᴗᵔ ✿
+        private async void ButtonCancelReservation(object sender, EventArgs e)
         {
+            // This function was done using LINQ for practice instead of loops, also improving readability and conciseness
 
+            // The await method waits for user imput
+            var seat = await DisplayPromptAsync("Cancel Reservation", "Enter the seat number to cancel reservation: ");
+            
+            // If the user cancels nothing will be done and seat is null and returned
+            if (seat == null)
+                return;
+
+            // Using LINQ to find the seat in the seating chart
+            // Cast flattens the array into a single list, and FirstOrDefault finds the first seat match
+            var seatToCancel = seatingChart.Cast<SeatingUnit>().FirstOrDefault(s => s.Name == seat);
+
+            // If seatToCancel returns null, no seat was found and error message is displayed
+            if (seatToCancel == null)
+            {
+                await DisplayAlert("Error", "Seat not found.", "Ok");
+            }
+            // If seat is found but not reserved, error message is displayed
+            else if (!seatToCancel.Reserved)
+            {
+                await DisplayAlert("Error", "Seat not currently reserved.", "Ok");
+            }
+            // If seat is found and reserved, reserved property is set to false, cancelling the reservation
+            else 
+            {
+                seatToCancel.Reserved = false;
+
+                await DisplayAlert("Reservation Canceled", $"Reservation for seat {seat} was successfully canceled.", "Ok");
+
+                // Call the refresh seating function to update the UI
+                RefreshSeating();
+            }
         }
 
         //Assign to Team 3 Member
